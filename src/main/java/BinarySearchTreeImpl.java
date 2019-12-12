@@ -10,6 +10,10 @@ public class BinarySearchTreeImpl implements BinarySearchTree {
         return add(this.root, newNode);
     }
 
+    public boolean search(Node searchingNode) {
+        return search(this.root, searchingNode);
+    }
+
     private boolean add(Node currentNode, Node newNode) {
 
         if (root == null) {
@@ -40,6 +44,23 @@ public class BinarySearchTreeImpl implements BinarySearchTree {
             }
         }
         System.out.println("Can't add duplicate value " + newNode.getValue());
+
+        return false;
+    }
+
+    private boolean search(Node currentNode, Node searchingNode) {
+
+        if (currentNode == null) {
+            System.out.println(String.format("Node %s not found", searchingNode.getValue()));
+            return false;
+        } else if (currentNode.getValue() == searchingNode.getValue()) {
+            System.out.println(String.format("Node %s found", searchingNode.getValue()));
+            return true;
+        } else if (searchingNode.getValue() > currentNode.getValue()) {
+            return search(currentNode.getRight(), searchingNode);
+        } else if (searchingNode.getValue() < currentNode.getValue()) {
+            return search(currentNode.getLeft(), searchingNode);
+        }
         return false;
     }
 }
